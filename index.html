@@ -3,724 +3,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Operational Alignment Diagnostic | The Pack Scout</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: #F5F5F5;
-  padding: 60px 24px 80px;
-  -webkit-font-smoothing: antialiased;
-  color: #1C1C1C;
-}
-
-.wrapper {
-  max-width: 780px;
-  margin: 0 auto;
-}
-
-/* HEADER */
-.header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.label {
-  font-size: 11px; font-weight: 600; letter-spacing: 3px;
-  text-transform: uppercase; color: #2E9999; margin-bottom: 14px;
-  display: block;
-}
-
-.heading {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 4vw, 42px); font-weight: 700;
-  color: #1C1C1C; line-height: 1.2; margin-bottom: 16px;
-}
-
-.subtext {
-  font-size: 16px; color: #555555; line-height: 1.75;
-  max-width: 580px; margin: 0 auto 24px;
-}
-
-.score-guide {
-  display: inline-flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  background: #FFFFFF;
-  border: 1px solid #D8E8E8;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 13px;
-  color: #555555;
-}
-
+body { font-family: 'DM Sans', sans-serif; background: #F5F5F5; padding: 60px 24px 80px; color: #1C1C1C; -webkit-font-smoothing: antialiased; }
+.wrapper { max-width: 780px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 48px; }
+.label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2E9999; margin-bottom: 14px; display: block; }
+.heading { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; color: #1C1C1C; line-height: 1.2; margin-bottom: 16px; }
+.subtext { font-size: 16px; color: #555; line-height: 1.75; max-width: 580px; margin: 0 auto 24px; }
+.score-guide { display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; background: #fff; border: 1px solid #D8E8E8; border-radius: 8px; padding: 12px 20px; font-size: 13px; color: #555; }
 .score-guide span { font-weight: 600; color: #1B6B6B; }
-
-/* CONTACT FIELDS */
-.contact-section {
-  background: #FFFFFF;
-  border-radius: 10px;
-  padding: 28px 32px;
-  margin-bottom: 24px;
-  border: 1.5px solid #D8E8E8;
-}
-
-.contact-section h3 {
-  font-size: 15px; font-weight: 700; color: #1B6B6B;
-  margin-bottom: 16px;
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-@media (max-width: 600px) {
-  .field-row { grid-template-columns: 1fr; }
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.field label {
-  font-size: 12px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  color: #888888;
-}
-
-.field input, .field select {
-  padding: 11px 14px;
-  border: 1.5px solid #D8E8E8;
-  border-radius: 6px;
-  font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-  color: #1C1C1C;
-  background: #FFFFFF;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.field input:focus, .field select:focus {
-  border-color: #2E9999;
-}
-
-/* LAYER SECTIONS */
-.layer {
-  background: #FFFFFF;
-  border-radius: 10px;
-  padding: 28px 32px;
-  margin-bottom: 20px;
-  border: 1.5px solid #D8E8E8;
-}
-
-.layer-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #E8F4F4;
-}
-
-.layer-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px; font-weight: 900;
-  color: #E8F4F4; line-height: 1; flex-shrink: 0;
-}
-
-.layer-title {
-  font-size: 16px; font-weight: 700; color: #1B6B6B;
-}
-
-.layer-desc {
-  font-size: 13px; color: #888888; margin-top: 2px;
-}
-
-/* QUESTION */
-.question {
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #F0F0F0;
-}
-
-.question:last-child {
-  margin-bottom: 0; padding-bottom: 0; border-bottom: none;
-}
-
-.question-text {
-  font-size: 15px; color: #333333; line-height: 1.65;
-  margin-bottom: 14px; font-weight: 500;
-}
-
-.question-num {
-  display: inline-block;
-  font-size: 11px; font-weight: 700;
-  color: #2E9999; letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 6px;
-}
-
-.scale {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.scale-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.scale-option input[type="radio"] {
-  display: none;
-}
-
-.scale-btn {
-  width: 44px; height: 44px;
-  border-radius: 6px;
-  border: 1.5px solid #D8E8E8;
-  background: #FFFFFF;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 700;
-  color: #888888;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.scale-option input[type="radio"]:checked + .scale-btn {
-  background: #1B6B6B;
-  border-color: #1B6B6B;
-  color: #FFFFFF;
-}
-
-.scale-btn:hover {
-  border-color: #2E9999;
-  color: #2E9999;
-}
-
-.scale-label {
-  font-size: 10px; color: #AAAAAA;
-  text-align: center; max-width: 44px;
-  line-height: 1.2;
-}
-
-/* SCORE PREVIEW */
-.score-preview {
-  background: #1B6B6B;
-  border-radius: 10px;
-  padding: 24px 32px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.score-display {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.score-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 52px; font-weight: 900;
-  color: #FFFFFF; line-height: 1;
-  transition: all 0.3s;
-}
-
-.score-denom {
-  font-size: 20px; color: rgba(255,255,255,0.5);
-  font-weight: 300;
-}
-
+.contact-section { background: #fff; border-radius: 10px; padding: 28px 32px; margin-bottom: 24px; border: 1.5px solid #D8E8E8; }
+.contact-section h3 { font-size: 15px; font-weight: 700; color: #1B6B6B; margin-bottom: 16px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #888; }
+.field input, .field select { padding: 11px 14px; border: 1.5px solid #D8E8E8; border-radius: 6px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #1C1C1C; background: #fff; outline: none; }
+.field input:focus, .field select:focus { border-color: #2E9999; }
+.layer { background: #fff; border-radius: 10px; padding: 28px 32px; margin-bottom: 20px; border: 1.5px solid #D8E8E8; }
+.layer-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #E8F4F4; }
+.layer-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #E8F4F4; line-height: 1; flex-shrink: 0; }
+.layer-title { font-size: 16px; font-weight: 700; color: #1B6B6B; }
+.layer-desc { font-size: 13px; color: #888; margin-top: 2px; }
+.question { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #F0F0F0; }
+.question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.question-num { display: inline-block; font-size: 11px; font-weight: 700; color: #2E9999; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.question-text { font-size: 15px; color: #333; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+.scale { display: flex; gap: 8px; flex-wrap: wrap; }
+.scale-option { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+.scale-option input[type="radio"] { display: none; }
+.scale-btn { width: 44px; height: 44px; border-radius: 6px; border: 1.5px solid #D8E8E8; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #888; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+.scale-option input[type="radio"]:checked + .scale-btn { background: #1B6B6B; border-color: #1B6B6B; color: #fff; }
+.scale-label { font-size: 10px; color: #AAA; text-align: center; max-width: 44px; line-height: 1.2; }
+.score-preview { background: #1B6B6B; border-radius: 10px; padding: 24px 32px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.score-display { display: flex; align-items: baseline; gap: 4px; }
+.score-num { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: #fff; line-height: 1; }
+.score-denom { font-size: 20px; color: rgba(255,255,255,0.5); font-weight: 300; }
 .score-info { flex: 1; min-width: 200px; }
-
-.score-band {
-  font-size: 18px; font-weight: 700;
-  color: #FFFFFF; margin-bottom: 4px;
-  font-family: 'Playfair Display', serif;
-}
-
-.score-message {
-  font-size: 14px; color: rgba(255,255,255,0.7);
-  line-height: 1.5;
-}
-
-/* PROGRESS BAR */
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 3px;
-  margin-top: 16px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: #D4820A;
-  border-radius: 3px;
-  transition: width 0.3s;
-  width: 0%;
-}
-
-/* SUBMIT */
-.submit-section {
-  background: #FFFFFF;
-  border-radius: 10px;
-  padding: 28px 32px;
-  border: 1.5px solid #D8E8E8;
-}
-
-.submit-section h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px; font-weight: 700;
-  color: #1C1C1C; margin-bottom: 8px;
-}
-
-.submit-section p {
-  font-size: 14px; color: #555555;
-  line-height: 1.6; margin-bottom: 24px;
-}
-
-.btn-submit {
-  background: #D4820A;
-  color: #FFFFFF;
-  padding: 15px 40px;
-  border-radius: 4px;
-  font-size: 15px; font-weight: 600;
-  border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: background 0.2s;
-  width: 100%;
-}
-
+.score-band { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+.score-message { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+.progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; margin-top: 16px; overflow: hidden; }
+.progress-fill { height: 100%; background: #D4820A; border-radius: 3px; width: 0%; }
+.submit-section { background: #fff; border-radius: 10px; padding: 28px 32px; border: 1.5px solid #D8E8E8; }
+.submit-section h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #1C1C1C; margin-bottom: 8px; }
+.submit-section p { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 24px; }
+.btn-submit { background: #D4820A; color: #fff; padding: 15px 40px; border-radius: 4px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; }
 .btn-submit:hover { background: #C07509; }
-
-.btn-submit:disabled {
-  background: #CCCCCC; cursor: not-allowed;
-}
-
-.submit-note {
-  font-size: 12px; color: #AAAAAA;
-  text-align: center; margin-top: 12px;
-  line-height: 1.5;
-}
-
-/* SUCCESS STATE */
-.success {
-  display: none;
-  text-align: center;
-  padding: 48px 32px;
-  background: #FFFFFF;
-  border-radius: 10px;
-  border: 1.5px solid #D8E8E8;
-}
-
-.success-icon {
-  font-size: 48px; margin-bottom: 16px;
-}
-
-.success h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px; font-weight: 700;
-  color: #1B6B6B; margin-bottom: 12px;
-}
-
-.success p {
-  font-size: 16px; color: #555555;
-  line-height: 1.7; max-width: 480px;
-  margin: 0 auto;
-}
-
-/* ERROR */
-.error-msg {
-  background: #FFF3F3;
-  border: 1px solid #FFCCCC;
-  border-radius: 6px;
-  padding: 12px 16px;
-  font-size: 13px; color: #CC3333;
-  margin-bottom: 16px;
-  display: none;
-}
+.submit-note { font-size: 12px; color: #AAA; text-align: center; margin-top: 12px; }
+.error-msg { background: #FFF3F3; border: 1px solid #FFCCCC; border-radius: 6px; padding: 12px 16px; font-size: 13px; color: #CC3333; margin-bottom: 16px; display: none; }
+.success { display: none; text-align: center; padding: 48px 32px; background: #fff; border-radius: 10px; border: 1.5px solid #D8E8E8; }
+.success-icon { font-size: 48px; margin-bottom: 16px; }
+.success h3 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #1B6B6B; margin-bottom: 12px; }
+.success p { font-size: 16px; color: #555; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+@media(max-width:600px){ .field-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-
 <div class="wrapper">
 
-  <!-- HEADER -->
-  <div class="header">
-    <span class="label">Operational Alignment Diagnostic</span>
-    <h2 class="heading">How aligned is your organisation?</h2>
-    <p class="subtext">Score each statement from 1 to 5. Your total out of 50 reveals where your compliance risk is building — and where to focus first.</p>
-    <div class="score-guide">
-      <span>1</span> = Not in place &nbsp;·&nbsp;
-      <span>2</span> = Partially &nbsp;·&nbsp;
-      <span>3</span> = In progress &nbsp;·&nbsp;
-      <span>4</span> = Mostly in place &nbsp;·&nbsp;
-      <span>5</span> = Fully aligned
+<div class="header">
+  <span class="label">Operational Alignment Diagnostic</span>
+  <h2 class="heading">How aligned is your organisation?</h2>
+  <p class="subtext">Score each statement from 1 to 5. Your total out of 50 reveals where your compliance risk is building — and where to focus first.</p>
+  <div class="score-guide">
+    <span>1</span> = Not in place &nbsp;·&nbsp;
+    <span>2</span> = Partially &nbsp;·&nbsp;
+    <span>3</span> = In progress &nbsp;·&nbsp;
+    <span>4</span> = Mostly in place &nbsp;·&nbsp;
+    <span>5</span> = Fully aligned
+  </div>
+</div>
+
+<form id="diagnosticForm">
+
+  <div class="contact-section">
+    <h3>Your details — so I can send your personalised results</h3>
+    <div class="field-row">
+      <div class="field">
+        <label>Your Name *</label>
+        <input type="text" id="fname" placeholder="First and last name" required>
+      </div>
+      <div class="field">
+        <label>Organisation *</label>
+        <input type="text" id="forg" placeholder="Company name" required>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="femail" placeholder="your@email.com" required>
+      </div>
+      <div class="field">
+        <label>Your Sector</label>
+        <select id="fsector">
+          <option value="">Select your sector</option>
+          <option>Food and Beverage</option>
+          <option>Pharma and Healthcare</option>
+          <option>Beauty and Personal Care</option>
+          <option>Retail</option>
+          <option>Converter or Supplier</option>
+          <option>Industrial or Other</option>
+        </select>
+      </div>
     </div>
   </div>
 
-  <!-- FORM -->
-  <form id="diagnosticForm">
-
-    <!-- CONTACT -->
-    <div class="contact-section">
-      <h3>Your details — so I can send your personalised results</h3>
-      <div class="field-row">
-        <div class="field">
-          <label>Your Name *</label>
-          <input type="text" id="name" placeholder="First and last name" required>
-        </div>
-        <div class="field">
-          <label>Organisation *</label>
-          <input type="text" id="org" placeholder="Company name" required>
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Email Address *</label>
-          <input type="email" id="email" placeholder="your@email.com" required>
-        </div>
-        <div class="field">
-          <label>Your Sector</label>
-          <select id="sector">
-            <option value="">Select your sector</option>
-            <option>Food & Beverage</option>
-            <option>Pharma & Healthcare</option>
-            <option>Beauty & Personal Care</option>
-            <option>Retail</option>
-            <option>Converter / Supplier</option>
-            <option>Industrial / Other</option>
-          </select>
-        </div>
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">01</div>
+      <div><div class="layer-title">Materials</div><div class="layer-desc">Visibility of what your packaging is made of</div></div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 1</div>
+      <p class="question-text">We have full visibility of the material composition of our packaging — including substrates, inks, coatings, adhesives, and closures — across our entire portfolio.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q1" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q1" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q1" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q1" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q1" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
       </div>
     </div>
-
-    <!-- LAYER 1: MATERIALS -->
-    <div class="layer">
-      <div class="layer-header">
-        <div class="layer-num">01</div>
-        <div>
-          <div class="layer-title">Materials</div>
-          <div class="layer-desc">Visibility of what your packaging is made of</div>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 1</div>
-        <p class="question-text">We have full visibility of the material composition of our packaging — including substrates, inks, coatings, adhesives, and closures — across our entire portfolio.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q1" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q1" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q1" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q1" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q1" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 2</div>
-        <p class="question-text">We know where restricted substances such as PFAS, BPA, and heavy metals may exist in our packaging chain and have assessed our exposure.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q2" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q2" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q2" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q2" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q2" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
+    <div class="question">
+      <div class="question-num">Question 2</div>
+      <p class="question-text">We know where restricted substances such as PFAS, BPA, and heavy metals may exist in our packaging chain and have assessed our exposure.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q2" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q2" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q2" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q2" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q2" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
       </div>
     </div>
-
-    <!-- LAYER 2: OPERATIONS -->
-    <div class="layer">
-      <div class="layer-header">
-        <div class="layer-num">02</div>
-        <div>
-          <div class="layer-title">Operations</div>
-          <div class="layer-desc">Production line readiness for packaging change</div>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 3</div>
-        <p class="question-text">We understand the operational impact of any material change we are considering — including effects on line speed, seal strength, scrap rates, and shelf life — before committing to it.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q3" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q3" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q3" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q3" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q3" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 4</div>
-        <p class="question-text">We have validated change pathways for the packaging transitions required by our sustainability targets or regulatory obligations.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q4" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q4" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q4" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q4" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q4" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- LAYER 3: SUPPLIERS -->
-    <div class="layer">
-      <div class="layer-header">
-        <div class="layer-num">03</div>
-        <div>
-          <div class="layer-title">Suppliers</div>
-          <div class="layer-desc">Contractual alignment and documentation quality</div>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 5</div>
-        <p class="question-text">Our suppliers can provide verified documentation — not just self-declarations — confirming compliance with our restricted substance requirements.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q5" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q5" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q5" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q5" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q5" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 6</div>
-        <p class="question-text">Our supplier contracts clearly reflect our compliance responsibilities and include provisions for regulatory updates and documentation requirements.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q6" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q6" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q6" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q6" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q6" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 7</div>
-        <p class="question-text">We have a systematic process for verifying supplier claims rather than accepting declarations at face value — including knowing what specific questions to ask and what documentation to require.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q7" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q7" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q7" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q7" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q7" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- LAYER 4: CLAIMS -->
-    <div class="layer">
-      <div class="layer-header">
-        <div class="layer-num">04</div>
-        <div>
-          <div class="layer-title">Claims & Evidence</div>
-          <div class="layer-desc">Substantiation of sustainability claims on pack</div>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 8</div>
-        <p class="question-text">Every sustainability claim currently on our packaging — recyclable, recycled content, compostable — can be substantiated with documentation we hold today.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q8" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q8" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q8" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q8" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q8" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 9</div>
-        <p class="question-text">Our labelling meets current regulatory expectations in every market we operate in and is reviewed and updated when regulations change.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q9" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q9" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q9" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q9" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q9" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- LAYER 5: SYSTEMS -->
-    <div class="layer">
-      <div class="layer-header">
-        <div class="layer-num">05</div>
-        <div>
-          <div class="layer-title">Systems & Governance</div>
-          <div class="layer-desc">Central infrastructure for compliance evidence</div>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="question-num">Question 10</div>
-        <p class="question-text">We have a systematic process for collecting, verifying, and centrally storing supplier compliance documentation — including declarations, restricted substance confirmations, and recyclability evidence — that can be retrieved on request across our full portfolio.</p>
-        <div class="scale">
-          <label class="scale-option"><input type="radio" name="q10" value="1" required><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
-          <label class="scale-option"><input type="radio" name="q10" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
-          <label class="scale-option"><input type="radio" name="q10" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
-          <label class="scale-option"><input type="radio" name="q10" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
-          <label class="scale-option"><input type="radio" name="q10" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- LIVE SCORE -->
-    <div class="score-preview" id="scorePreview">
-      <div class="score-display">
-        <div class="score-num" id="liveScore">0</div>
-        <div class="score-denom">/50</div>
-      </div>
-      <div class="score-info">
-        <div class="score-band" id="scoreBand">Answer the questions above</div>
-        <div class="score-message" id="scoreMessage">Your alignment score will update as you respond.</div>
-        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      </div>
-    </div>
-
-    <!-- SUBMIT -->
-    <div class="submit-section">
-      <h3>Send me your results</h3>
-      <p>Once you submit, I'll review your scores and send you a personalised note on what your results suggest — including the specific areas I'd prioritise given your sector and situation. No automated response — a personal reply from me.</p>
-      <div class="error-msg" id="errorMsg">Please answer all ten questions and fill in your name, organisation, and email before submitting.</div>
-      <button type="submit" class="btn-submit" id="submitBtn">Submit My Diagnostic Results</button>
-      <p class="submit-note">Your details are used only to respond to your diagnostic. I don't share your information with third parties.</p>
-    </div>
-
-  </form>
-
-  <!-- SUCCESS -->
-  <div class="success" id="successMsg">
-    <div class="success-icon">✅</div>
-    <h3>Thank you — your results are on their way.</h3>
-    <p>I've received your diagnostic scores and will send you a personalised response within one working day. If you'd like to discuss the results sooner, email me directly at <a href="/cdn-cgi/l/email-protection#ec818d989884899bac9884899c8d8f879f8f839998c28f8381" style="color:#1B6B6B;font-weight:600;"><span class="__cf_email__" data-cfemail="25484451514d405265514d405544464e56464a50510b464a48">[email&#160;protected]</span></a>.</p>
   </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">02</div>
+      <div><div class="layer-title">Operations</div><div class="layer-desc">Production line readiness for packaging change</div></div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 3</div>
+      <p class="question-text">We understand the operational impact of any material change we are considering — including effects on line speed, seal strength, scrap rates, and shelf life — before committing to it.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q3" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q3" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q3" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q3" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q3" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 4</div>
+      <p class="question-text">We have validated change pathways for the packaging transitions required by our sustainability targets or regulatory obligations.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q4" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q4" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q4" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q4" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q4" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">03</div>
+      <div><div class="layer-title">Suppliers</div><div class="layer-desc">Contractual alignment and documentation quality</div></div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 5</div>
+      <p class="question-text">Our suppliers can provide verified documentation — not just self-declarations — confirming compliance with our restricted substance requirements.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q5" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q5" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q5" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q5" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q5" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 6</div>
+      <p class="question-text">Our supplier contracts clearly reflect our compliance responsibilities and include provisions for regulatory updates and documentation requirements.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q6" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q6" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q6" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q6" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q6" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 7</div>
+      <p class="question-text">We have a systematic process for verifying supplier claims rather than accepting declarations at face value — including knowing what specific questions to ask and what documentation to require.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q7" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q7" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q7" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q7" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q7" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">04</div>
+      <div><div class="layer-title">Claims and Evidence</div><div class="layer-desc">Substantiation of sustainability claims on pack</div></div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 8</div>
+      <p class="question-text">Every sustainability claim currently on our packaging — recyclable, recycled content, compostable — can be substantiated with documentation we hold today.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q8" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q8" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q8" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q8" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q8" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 9</div>
+      <p class="question-text">Our labelling meets current regulatory expectations in every market we operate in and is reviewed and updated when regulations change.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q9" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q9" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q9" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q9" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q9" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-num">05</div>
+      <div><div class="layer-title">Systems and Governance</div><div class="layer-desc">Central infrastructure for compliance evidence</div></div>
+    </div>
+    <div class="question">
+      <div class="question-num">Question 10</div>
+      <p class="question-text">We have a systematic process for collecting, verifying, and centrally storing supplier compliance documentation — including declarations, restricted substance confirmations, and recyclability evidence — that can be retrieved on request across our full portfolio.</p>
+      <div class="scale">
+        <label class="scale-option"><input type="radio" name="q10" value="1"><div class="scale-btn">1</div><span class="scale-label">Not in place</span></label>
+        <label class="scale-option"><input type="radio" name="q10" value="2"><div class="scale-btn">2</div><span class="scale-label">Partially</span></label>
+        <label class="scale-option"><input type="radio" name="q10" value="3"><div class="scale-btn">3</div><span class="scale-label">In progress</span></label>
+        <label class="scale-option"><input type="radio" name="q10" value="4"><div class="scale-btn">4</div><span class="scale-label">Mostly</span></label>
+        <label class="scale-option"><input type="radio" name="q10" value="5"><div class="scale-btn">5</div><span class="scale-label">Fully aligned</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="score-preview">
+    <div class="score-display">
+      <div class="score-num" id="liveScore">0</div>
+      <div class="score-denom">/50</div>
+    </div>
+    <div class="score-info">
+      <div class="score-band" id="scoreBand">Answer the questions above</div>
+      <div class="score-message" id="scoreMessage">Your alignment score will update as you respond.</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+
+  <div class="submit-section">
+    <h3>Send me your results</h3>
+    <p>Once you submit, I will review your scores and send you a personalised note on what your results suggest — including the specific areas I would prioritise given your sector and situation. No automated response — a personal reply from me within one working day.</p>
+    <div class="error-msg" id="errorMsg">Please answer all ten questions and fill in your name, organisation, and email before submitting.</div>
+    <button type="submit" class="btn-submit">Submit My Diagnostic Results</button>
+    <p class="submit-note">Your details are used only to respond to your diagnostic. I do not share your information with third parties.</p>
+  </div>
+
+</form>
+
+<div class="success" id="successMsg">
+  <div class="success-icon">&#10003;</div>
+  <h3>Thank you — your results are on their way.</h3>
+  <p>I have received your diagnostic scores and will send you a personalised response within one working day. If you would like to discuss the results sooner, email me directly at <a href="mailto:matthew@thepackscout.com" style="color:#1B6B6B;font-weight:600;">matthew@thepackscout.com</a>.</p>
+</div>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Live score calculation
-function updateScore() {
-  let total = 0;
-  for (let i = 1; i <= 10; i++) {
-    const selected = document.querySelector('input[name="q' + i + '"]:checked');
-    if (selected) total += parseInt(selected.value);
+<script type="text/javascript">
+(function() {
+
+  function getScore() {
+    var total = 0;
+    for (var i = 1; i <= 10; i++) {
+      var radios = document.getElementsByName('q' + i);
+      for (var j = 0; j < radios.length; j++) {
+        if (radios[j].checked) {
+          total += parseInt(radios[j].value);
+          break;
+        }
+      }
+    }
+    return total;
   }
 
-  document.getElementById('liveScore').textContent = total;
-  const pct = (total / 50) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
+  function updateDisplay() {
+    var total = getScore();
+    document.getElementById('liveScore').textContent = total;
+    var pct = Math.round((total / 50) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
 
-  let band = '';
-  let message = '';
+    var band, message;
+    if (total === 0) {
+      band = 'Answer the questions above';
+      message = 'Your alignment score will update as you respond.';
+    } else if (total >= 40) {
+      band = 'Strong Alignment';
+      message = 'Your organisation has strong foundations. Focus now is on maintaining and evidencing alignment as regulation evolves.';
+    } else if (total >= 30) {
+      band = 'Transitional Risk';
+      message = 'Good progress but gaps remain. Targeted work on your lowest-scoring layers will significantly reduce exposure.';
+    } else if (total >= 20) {
+      band = 'Significant Exposure';
+      message = 'Meaningful alignment gaps exist. With PPWR applying from August 2026, proactive work now is far less costly than reactive work later.';
+    } else {
+      band = 'Compliance Likely Reactive';
+      message = 'Significant alignment work is needed. This is entirely addressable with a structured approach.';
+    }
 
-  if (total === 0) {
-    band = 'Answer the questions above';
-    message = 'Your alignment score will update as you respond.';
-  } else if (total >= 40) {
-    band = 'Strong Alignment';
-    message = 'Your organisation has strong foundations. The focus now is on maintaining and evidencing that alignment as regulation evolves.';
-  } else if (total >= 30) {
-    band = 'Transitional Risk';
-    message = 'Good progress but gaps remain in specific areas. Targeted work on your lowest-scoring layers will significantly reduce exposure.';
-  } else if (total >= 20) {
-    band = 'Significant Exposure';
-    message = 'Meaningful alignment gaps exist. With PPWR applying from August 2026, proactive work now is significantly less costly than reactive work later.';
-  } else {
-    band = 'Compliance Likely Reactive';
-    message = 'Significant alignment work is needed. The good news is that this is entirely addressable with a structured approach.';
+    document.getElementById('scoreBand').textContent = band;
+    document.getElementById('scoreMessage').textContent = message;
   }
 
-  document.getElementById('scoreBand').textContent = band;
-  document.getElementById('scoreMessage').textContent = message;
-}
-
-// Attach listeners
-document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-  radio.addEventListener('change', updateScore);
-});
-
-// Form submission via email
-document.getElementById('diagnosticForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const org = document.getElementById('org').value.trim();
-  const email = document.getElementById('email').value.trim();
-
-  // Check all questions answered
-  let allAnswered = true;
-  for (let i = 1; i <= 10; i++) {
-    if (!document.querySelector('input[name="q' + i + '"]:checked')) {
-      allAnswered = false;
-      break;
+  function attachListeners() {
+    for (var i = 1; i <= 10; i++) {
+      var radios = document.getElementsByName('q' + i);
+      for (var j = 0; j < radios.length; j++) {
+        radios[j].addEventListener('change', updateDisplay);
+      }
     }
   }
 
-  if (!name || !org || !email || !allAnswered) {
-    document.getElementById('errorMsg').style.display = 'block';
-    return;
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    var name = document.getElementById('fname').value.trim();
+    var org = document.getElementById('forg').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    var sector = document.getElementById('fsector').value || 'Not specified';
+
+    var allAnswered = true;
+    for (var i = 1; i <= 10; i++) {
+      var radios = document.getElementsByName('q' + i);
+      var answered = false;
+      for (var j = 0; j < radios.length; j++) {
+        if (radios[j].checked) { answered = true; break; }
+      }
+      if (!answered) { allAnswered = false; break; }
+    }
+
+    if (!name || !org || !email || !allAnswered) {
+      document.getElementById('errorMsg').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('errorMsg').style.display = 'none';
+
+    var scores = {};
+    var total = 0;
+    for (var i = 1; i <= 10; i++) {
+      var radios = document.getElementsByName('q' + i);
+      for (var j = 0; j < radios.length; j++) {
+        if (radios[j].checked) {
+          scores['q' + i] = parseInt(radios[j].value);
+          total += scores['q' + i];
+          break;
+        }
+      }
+    }
+
+    var band = total >= 40 ? 'Strong Alignment' :
+               total >= 30 ? 'Transitional Risk' :
+               total >= 20 ? 'Significant Exposure' : 'Compliance Likely Reactive';
+
+    var subject = 'Alignment Diagnostic: ' + name + ' - ' + org + ' - ' + total + '/50';
+    var body = 'Name: ' + name + '\n' +
+               'Organisation: ' + org + '\n' +
+               'Email: ' + email + '\n' +
+               'Sector: ' + sector + '\n\n' +
+               'TOTAL SCORE: ' + total + '/50 - ' + band + '\n\n' +
+               'Q1 Materials visibility: ' + (scores.q1 || 0) + '/5\n' +
+               'Q2 Restricted substances: ' + (scores.q2 || 0) + '/5\n' +
+               'Q3 Operational impact: ' + (scores.q3 || 0) + '/5\n' +
+               'Q4 Change pathways: ' + (scores.q4 || 0) + '/5\n' +
+               'Q5 Supplier documentation: ' + (scores.q5 || 0) + '/5\n' +
+               'Q6 Supplier contracts: ' + (scores.q6 || 0) + '/5\n' +
+               'Q7 Supplier verification: ' + (scores.q7 || 0) + '/5\n' +
+               'Q8 Claims evidence: ' + (scores.q8 || 0) + '/5\n' +
+               'Q9 Labelling compliance: ' + (scores.q9 || 0) + '/5\n' +
+               'Q10 Systems and governance: ' + (scores.q10 || 0) + '/5';
+
+    window.location.href = 'mailto:matthew@thepackscout.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    setTimeout(function() {
+      document.getElementById('diagnosticForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }, 1000);
   }
 
-  document.getElementById('errorMsg').style.display = 'none';
-
-  // Build score summary
-  let scores = {};
-  let total = 0;
-  for (let i = 1; i <= 10; i++) {
-    const val = parseInt(document.querySelector('input[name="q' + i + '"]:checked').value);
-    scores['q' + i] = val;
-    total += val;
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      attachListeners();
+      document.getElementById('diagnosticForm').addEventListener('submit', handleSubmit);
+    });
+  } else {
+    attachListeners();
+    document.getElementById('diagnosticForm').addEventListener('submit', handleSubmit);
   }
 
-  const sector = document.getElementById('sector').value || 'Not specified';
+})();
+</script>
 
-  // Determine band
-  let band = total >= 40 ? 'Strong Alignment' :
-             total >= 30 ? 'Transitional Risk' :
-             total >= 20 ? 'Significant Exposure' : 'Compliance Likely Reactive';
-
-  // Submit via email
-  submitViaMailto(name, org, email, sector, scores, total, band);
-
-function submitViaMailto(name, org, email, sector, scores, total, band) {
-  const subject = encodeURIComponent('Alignment Diagnostic: ' + name + ' — ' + org + ' — ' + total + '/50');
-  const body = encodeURIComponent(
-    'Name: ' + name + '\n' +
-    'Organisation: ' + org + '\n' +
-    'Email: ' + email + '\n' +
-    'Sector: ' + sector + '\n\n' +
-    'TOTAL SCORE: ' + total + '/50 — ' + band + '\n\n' +
-    'Q1 Materials visibility: ' + scores.q1 + '/5\n' +
-    'Q2 Restricted substances: ' + scores.q2 + '/5\n' +
-    'Q3 Operational impact: ' + scores.q3 + '/5\n' +
-    'Q4 Change pathways: ' + scores.q4 + '/5\n' +
-    'Q5 Supplier documentation: ' + scores.q5 + '/5\n' +
-    'Q6 Supplier contracts: ' + scores.q6 + '/5\n' +
-    'Q7 Supplier verification: ' + scores.q7 + '/5\n' +
-    'Q8 Claims evidence: ' + scores.q8 + '/5\n' +
-    'Q9 Labelling compliance: ' + scores.q9 + '/5\n' +
-    'Q10 Systems & governance: ' + scores.q10 + '/5'
-  );
-  wind
+</body>
+</html>
