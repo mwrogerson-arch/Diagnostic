@@ -381,29 +381,42 @@ body { font-family: 'DM Sans', sans-serif; background: #F5F5F5; padding: 60px 24
                total >= 30 ? 'Transitional Risk' :
                total >= 20 ? 'Significant Exposure' : 'Compliance Likely Reactive';
 
-    var subject = 'Alignment Diagnostic: ' + name + ' - ' + org + ' - ' + total + '/50';
-    var body = 'Name: ' + name + '\n' +
-               'Organisation: ' + org + '\n' +
-               'Email: ' + email + '\n' +
-               'Sector: ' + sector + '\n\n' +
-               'TOTAL SCORE: ' + total + '/50 - ' + band + '\n\n' +
-               'Q1 Materials visibility: ' + (scores.q1 || 0) + '/5\n' +
-               'Q2 Restricted substances: ' + (scores.q2 || 0) + '/5\n' +
-               'Q3 Operational impact: ' + (scores.q3 || 0) + '/5\n' +
-               'Q4 Change pathways: ' + (scores.q4 || 0) + '/5\n' +
-               'Q5 Supplier documentation: ' + (scores.q5 || 0) + '/5\n' +
-               'Q6 Supplier contracts: ' + (scores.q6 || 0) + '/5\n' +
-               'Q7 Supplier verification: ' + (scores.q7 || 0) + '/5\n' +
-               'Q8 Claims evidence: ' + (scores.q8 || 0) + '/5\n' +
-               'Q9 Labelling compliance: ' + (scores.q9 || 0) + '/5\n' +
-               'Q10 Systems and governance: ' + (scores.q10 || 0) + '/5';
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('organisation', org);
+    formData.append('email', email);
+    formData.append('sector', sector);
+    formData.append('total_score', total + '/50 — ' + band);
+    formData.append('q1_materials_visibility', scores.q1 || 0);
+    formData.append('q2_restricted_substances', scores.q2 || 0);
+    formData.append('q3_operational_impact', scores.q3 || 0);
+    formData.append('q4_change_pathways', scores.q4 || 0);
+    formData.append('q5_supplier_documentation', scores.q5 || 0);
+    formData.append('q6_supplier_contracts', scores.q6 || 0);
+    formData.append('q7_supplier_verification', scores.q7 || 0);
+    formData.append('q8_claims_evidence', scores.q8 || 0);
+    formData.append('q9_labelling_compliance', scores.q9 || 0);
+    formData.append('q10_systems_governance', scores.q10 || 0);
+    formData.append('_subject', 'Diagnostic: ' + name + ' — ' + org + ' — ' + total + '/50');
 
-    window.location.href = 'mailto:matthew@thepackscout.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-    setTimeout(function() {
-      document.getElementById('diagnosticForm').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    }, 1000);
+    fetch('https://formspree.io/f/xeerydbj', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response) {
+      if (response.ok) {
+        document.getElementById('diagnosticForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        document.getElementById('errorMsg').textContent = 'Something went wrong — please email matthew@thepackscout.com directly.';
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    })
+    .catch(function() {
+      document.getElementById('errorMsg').textContent = 'Something went wrong — please email matthew@thepackscout.com directly.';
+      document.getElementById('errorMsg').style.display = 'block';
+    });
   }
 
   if (document.readyState === 'loading') {
